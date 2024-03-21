@@ -1,0 +1,2 @@
+- Same Origin Policy
+- Security Headers.

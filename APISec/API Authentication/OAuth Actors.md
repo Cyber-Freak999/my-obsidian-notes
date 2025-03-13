@@ -1,4 +1,4 @@
-# The Problem
+ # The Problem
 ![[Pasted image 20241118201010.png]]
 # OAuth Actors
 - Resource Owner

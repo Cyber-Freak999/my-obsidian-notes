@@ -242,3 +242,19 @@ Build a clipboard manager that **stores, organizes, and retrieves copied text s
 ![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Persistent Storage** – Saves clipboard history even after a system restart using SQLite.  
 ![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Multi-Device Sync** (Optional) – Sync clipboard history across devices using a simple local server.
 
+
+# Coding Project Idea: University Research & Study Companion
+
+Build an AI-powered tool that helps university students and researchers efficiently manage, summarize, and reference academic content.
+
+### **Key Features:**
+
+![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Smart Note-Taking** – Extract key points from lecture slides, research papers, and textbooks using AI summarization.  
+![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Auto-Generated Citations** – Generate citations in APA, MLA, or IEEE format from pasted or uploaded text.  
+![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Lecture Transcription & Search** – Convert recorded lectures to searchable text using speech-to-text technology.  
+![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Study Group Collaboration** – Share notes, research papers, and discussions with classmates in real time.  
+![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **AI-Powered Q&A** – Ask questions about notes or uploaded academic papers and get AI-generated explanations.  
+![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Research Paper Organizer** – Automatically categorize and tag saved papers based on topics and keywords.  
+![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Plagiarism Checker** (Optional) – Compare notes and papers against a database to check for plagiarism risks.
+
+

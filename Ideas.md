@@ -248,13 +248,32 @@ Build a clipboard manager that **stores, organizes, and retrieves copied text s
 Build an AI-powered tool that helps university students and researchers efficiently manage, summarize, and reference academic content.
 
 ### **Key Features:**
+✅ **Smart Note-Taking** – Extract key points from lecture slides, research papers, and textbooks using AI summarization.  
+✅ **Auto-Generated Citations** – Generate citations in APA, MLA, or IEEE format from pasted or uploaded text.  
+✅ **Lecture Transcription & Search** – Convert recorded lectures to searchable text using speech-to-text technology.  
+✅ **Study Group Collaboration** – Share notes, research papers, and discussions with classmates in real time.  
+✅ **AI-Powered Q&A** – Ask questions about notes or uploaded academic papers and get AI-generated explanations.  
+✅ **Research Paper Organizer** – Automatically categorize and tag saved papers based on topics and keywords.  
+**Plagiarism Checker** (Optional) – Compare notes and papers against a database to check for plagiarism risks.
 
-![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Smart Note-Taking** – Extract key points from lecture slides, research papers, and textbooks using AI summarization.  
-![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Auto-Generated Citations** – Generate citations in APA, MLA, or IEEE format from pasted or uploaded text.  
-![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Lecture Transcription & Search** – Convert recorded lectures to searchable text using speech-to-text technology.  
-![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Study Group Collaboration** – Share notes, research papers, and discussions with classmates in real time.  
-![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **AI-Powered Q&A** – Ask questions about notes or uploaded academic papers and get AI-generated explanations.  
-![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Research Paper Organizer** – Automatically categorize and tag saved papers based on topics and keywords.  
-![✅](https://fonts.gstatic.com/s/e/notoemoji/16.0/2705/32.png) **Plagiarism Checker** (Optional) – Compare notes and papers against a database to check for plagiarism risks.
+# Coding Project Idea: Critical Thinker – The AI Debate Partner
+A programming tool that forces developers to _actively think_ rather than passively accept AI-generated code. This app simulates pair programming with an AI that deliberately challenges your solutions, requiring you to defend your approach and understand what you're building.
+## **Key Features:**
 
+✅ **Challenge Mode** – Submit your code and the app will intentionally critique it, forcing you to explain your design decisions and architecture choices.
 
+✅ **Understanding Verification** – After using AI to generate code, the tool asks targeted questions about how it works, making sure you understand what you've "built."
+
+✅ **Deliberate Practice** – Specific exercises that target fundamental skills AI often handles for you: debugging, algorithm selection, data structure design.
+
+✅ **Scaffolded Learning** – Slowly reduces AI assistance over time, gradually transitioning you to writing more code independently.
+
+✅ **Concept Maps** – Creates visual representations of dependencies in your code, ensuring you grasp how components interact.
+
+✅ **Explanation Challenge** – Randomly selects sections of AI-generated code and asks you to explain them in plain English.
+
+✅ **Progress Tracking** – Measures your growing independence from AI tools and your ability to think critically about programming problems.
+
+✅ **Extensible API** – Integrates with your existing development environment and AI tools like GitHub Copilot or Claude.
+
+​

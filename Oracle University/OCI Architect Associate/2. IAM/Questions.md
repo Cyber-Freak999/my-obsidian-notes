@@ -229,3 +229,164 @@ This gives you **fine-grained control** without nesting.
 4. **Audit group memberships regularly** to ensure proper access control.
     
 5. For SCIM or SAML-based apps, map group claims carefully to avoid overprovisioning.
+---
+#  How does Just-In-Time (JIT) provisioning differ from SCIM-based provisioning in OCI?
+
+|Feature|**Just-In-Time (JIT) Provisioning**|**SCIM-Based Provisioning**|
+|---|---|---|
+|**Definition**|Users are automatically created in OCI **at the time of first login** via federation.|Users are **pre-provisioned** into OCI IAM using SCIM (System for Cross-domain Identity Management) APIs.|
+|**When Users Are Created**|Only **when** they try to sign in.|**Before** login — during bulk sync or automated onboarding.|
+|**Use Case**|Lightweight, on-demand user creation (common in SAML federation).|Enterprise-scale, automated user and group lifecycle management.|
+|**Control**|Limited; no user exists until login happens. Can't assign groups/policies before login.|Full control; assign groups, roles, and permissions ahead of time.|
+|**API Use**|Not required; integrated with IdP login flow.|Requires SCIM client integration and token-based API calls.|
+|**Customization**|Limited to what's provided by the IdP and federation profile.|Highly customizable; supports user attributes, group sync, and more.|
+
+### ✅ **When to Use Which?**
+
+|Scenario|Recommended Option|
+|---|---|
+|Lightweight, ad hoc user access via SSO|**JIT Provisioning**|
+|Enterprise-level identity synchronization (e.g., HR → IAM)|**SCIM Provisioning**|
+|Need to assign access before login|**SCIM Provisioning**|
+|No internal directory, use IdP like Azure AD or Okta for access only|**JIT Provisioning**|
+
+---
+
+# How do you set up self-registration profiles for consumer users securely?
+
+##  **Self-Registration Overview:**
+
+OCI IAM allows you to **create self-registration profiles** that let **external users (e.g., consumers, partners)** register themselves.
+
+This is especially useful for **B2C or external-facing applications** where you don’t want to manually manage every user.
+## ✅ **Steps to Set Up Secure Self-Registration:**
+
+1.  **Navigate to Self-Registration:**
+    
+    - Go to **OCI Console > Identity & Security > Identity Domains**.
+        
+    - Select your domain.
+        
+    - Click on **Self-Registration Profiles** under **Users**.
+        
+2.  **Create a New Self-Registration Profile:**
+    
+    - Click **Create Self-Registration Profile**.
+        
+    - Fill in:
+        
+        - **Profile Name**
+            
+        - **Registration URL Path** (this becomes part of the registration URL)
+            
+        - **User attributes** (email, phone, etc.)
+            
+        - **Optional approval flow** (admin approval or auto-approve)
+            
+        - **Group Assignment** (users can be automatically added to a specific group)
+            
+3.  **Enable CAPTCHA and Email Verification (for security):**
+    
+    - CAPTCHA: Helps protect against bot registrations.
+        
+    - Email verification: Sends a code to user’s email before activating their account.
+        
+4.  **Configure Password Policies and MFA:**
+    
+    - Ensure secure password rules (length, complexity).
+        
+    - Optionally enforce MFA for registered users.
+        
+5.  **Set Domain Policies (Optional but Recommended):**
+    
+    - Write IAM policies to control what users in the self-registration group can access.
+        
+    
+    Example:
+    
+    ```plaintext
+    Allow group ConsumerUsers to use applications in tenancy
+    ```
+    
+6. ### **Share the Registration URL:**
+    
+    - This URL is where users can sign up.
+        
+    - Make sure it’s embedded in a secure website or app UI.
+## 🔐 **Security Best Practices for Self-Registration:**
+
+|Practice|Why It Matters|
+|---|---|
+|**Enable CAPTCHA**|Prevents automated/bot registrations.|
+|**Require Email Verification**|Validates identity before activation.|
+|**Restrict Assigned Groups**|Don’t auto-assign high-privilege roles. Use a minimal-permission group.|
+|**Use Approval Workflows (if needed)**|Adds manual checks for high-risk environments.|
+|**Apply access policies carefully**|Least-privilege principle should always apply.|
+|**Monitor Audit Logs**|Track registrations and failed attempts.|
+
+---
+
+# How do these domain roles compare to IAM policies assigned at tenancy level?
+## Domain Roles vs. IAM Policies at Tenancy Level
+
+|**Aspect**|**Identity Domain Roles**|**Tenancy-Level IAM Policies**|
+|---|---|---|
+|**Scope**|Identity Domain only (users, groups, apps, MFA, etc.)|Entire tenancy and OCI resources (compute, storage, network, etc.)|
+|**Assigned To**|Individual users within a domain|IAM groups defined at tenancy level|
+|**Management Interface**|Assigned in **Identity Domains UI** (or API)|Defined in **IAM Policies** via console or policy language|
+|**Granularity**|Predefined, role-based (no custom permissions)|Highly customizable with fine-grained permissions|
+|**Policy Language Needed?**|❌ No — roles are predefined|✅ Yes — must write policy statements|
+|**Typical Use Cases**|Manage identities: create users, reset passwords, configure MFA, manage SSO apps|Manage infrastructure: launch compute, read logs, manage VCNs, access object storage|
+|**Examples**|Help-Desk Admin, User Admin, Security Admin|`Allow group DevOps to manage instances in compartment ProjectX`|
+|**Customization**|Limited — cannot change permissions in a role|Fully customizable to match resource and access needs|
+
+##  Detailed Comparison
+
+### 1. Identity Domain Roles
+
+- Apply **only within the identity domain boundary**.
+    
+- Used to **delegate identity-related tasks**.
+    
+- **No access to infrastructure resources** like compute or storage.
+    
+- Roles like:
+    
+    - `User Administrator`
+        
+    - `Security Administrator`
+        
+    - `Application Administrator`
+        
+    - `Audit Administrator`
+        
+
+> Useful when you want to **delegate access to IAM features** without giving resource-level permissions.
+
+### 2. IAM Policies at Tenancy Level
+
+- Used to control access to **OCI resources** across the entire tenancy.
+    
+- Govern **who can access what resources in which compartments**.
+    
+- Written in **policy language**, like:
+    
+    ```plaintext
+    Allow group DataTeam to read buckets in compartment FinanceData
+    ```
+    
+- Apply to groups, not directly to individual users.
+    
+
+> Required when users need to **launch, manage, or view OCI services**.
+
+## When to Use What?
+
+|**Need**|**Use...**|
+|---|---|
+|Delegate password resets, MFA config, user creation|**Domain Roles**|
+|Let dev team manage their own compute/network/storage|**IAM Policies at tenancy level**|
+|Set up application SSO and group access control|**Domain Roles**|
+|Control access to production vs staging environments|**IAM Policies + Compartments**|
+
+---

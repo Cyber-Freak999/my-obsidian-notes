@@ -1,0 +1,10 @@
+IT infrastructure refers to all the essential components businesses use to operate, including hardware, network elements, software, communication, and the physical facilities that house the equipment.
+The five essential components of IT infrastructure are: Hardware (physical devices), Network Elements (routers, switches, servers), Software (applications), Communication (phone systems and services), and Facilities (physical locations).
+Traditional IT infrastructure resides on-site, offering full control but requiring significant maintenance costs, while cloud-based infrastructure is hosted by a provider and accessed via the internet with benefits like affordability and scalability.
+An optimal IT infrastructure is designed for high availability with minimal downtime, employing redundancy and failover plans to maintain continuous business operations during failures or disasters.
+Network performance is improved by using low latency networks and bandwidth management to prioritize critical traffic such as VoIP calls, ensuring efficient data processing and minimal delays.
+Servers are dedicated computers that provide services like web hosting, data storage, or email to multiple clients over a network, centralizing resources and operations.
+Any computer can act as a server by running server software, but true servers use specialized hardware and operating systems to handle large workloads and many simultaneous connections reliably.
+Server hardware differs from desktops by using processors like Intel Xeon that support multiprocessing, ECC RAM for error correction, larger RAM capacity, and features like hot-swappable drives and RAID configurations for reliability.
+Server operating systems such as Windows Server or Linux are designed to be stable and run continuously, handling thousands of simultaneous connections and critical services without interruption.
+Common server types include web servers (host websites), email servers (manage email sending and receiving), and database servers (store and retrieve data accessed by clients).

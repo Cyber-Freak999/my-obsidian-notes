@@ -1,3 +1,8 @@
+---
+tags:
+  - concept
+  - network
+---
 # Understanding SMB
 ## What is SMB?
 SMB - Server Message Block Protocol - is a client-server communication protocol used for sharing access to files, printers, serial ports and other resources on a network. [source](https://searchnetworking.techtarget.com/definition/Server-Message-Block-Protocol)

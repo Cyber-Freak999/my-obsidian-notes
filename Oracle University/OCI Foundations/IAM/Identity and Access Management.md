@@ -2,7 +2,7 @@
 
 OCI Identity and Access Management (IAM) is a security service that:
 
-- **Identifies users ([[[[AuthN and AuthZ|AuthN]])**: Username/password, security settings.
+- **Identifies users ([[AuthN and AuthZ|AuthN]])**: Username/password, security settings.
 - **Controls access ([[AuthN and AuthZ|AuthZ]])**: Determines what resources they can use.
 
 IAM is **role-based** and **fine-grained**, meaning:

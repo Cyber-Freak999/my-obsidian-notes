@@ -4,10 +4,6 @@ tags:
   - exploitation
   - post-exploitation
 link: https://tryhackme.com/room/shellsoverview
-prerequisites:
-  - "[[Networking MOC]]"
-  - "[[Command Line MOC]]"
-  - "[[Web Hacking MOC]]"
 ---
 # What is a Shell?
 A shell is software that allows a user to interact with an OS. It can be a graphical interface, but it is usually a command-line interface, and this will depend on the operating system running on the target system.  

@@ -66,3 +66,4 @@ For example, the output of commands such as `ping` or `whoami` is directly displ
 > For example, an application may strip out quotation marks; we can instead use the hexadecimal value of this to achieve the same result.
 > When executed, although the data given will be in a different format than what is expected, it can still be interpreted and will have the same result.
 
+Related: [OS Command Injection](OS%20Command%20Injection.md)

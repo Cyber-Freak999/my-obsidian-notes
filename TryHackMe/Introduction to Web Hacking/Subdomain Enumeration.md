@@ -1,7 +1,6 @@
 ---
 tags:
   - concept
-  - tool
   - recon
   - web-app
 link: https://tryhackme.com/room/subdomainenumeration

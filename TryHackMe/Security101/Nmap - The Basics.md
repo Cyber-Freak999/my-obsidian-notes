@@ -56,3 +56,47 @@ You can select the following format for saving your scan report:
 - `-oX <filename>` - XML output
 - `-oG <filename>` - `grep`-able output (useful for `grep` and `awk`)
 - `-oA <basename>` - Output in all major formats
+
+|Port Scan Type|Example Command|
+|---|---|
+|TCP Null Scan|`sudo nmap -sN 10.113.148.167`|
+|TCP FIN Scan|`sudo nmap -sF 10.113.148.167`|
+|TCP Xmas Scan|`sudo nmap -sX 10.113.148.167`|
+|TCP Maimon Scan|`sudo nmap -sM 10.113.148.167`|
+|TCP ACK Scan|`sudo nmap -sA 10.113.148.167`|
+|TCP Window Scan|`sudo nmap -sW 10.113.148.167`|
+|Custom TCP Scan|`sudo nmap --scanflags URGACKPSHRSTSYNFIN 10.113.148.167`|
+|Spoofed Source IP|`sudo nmap -S SPOOFED_IP 10.113.148.167`|
+|Spoofed MAC Address|`--spoof-mac SPOOFED_MAC`|
+|Decoy Scan|`nmap -D DECOY_IP,ME 10.113.148.167`|
+|Idle (Zombie) Scan|`sudo nmap -sI ZOMBIE_IP 10.113.148.167`|
+|Fragment IP data into 8 bytes|`-f`|
+|Fragment IP data into 16 bytes|`-ff`|
+
+| Option                   | Purpose                                  |
+| ------------------------ | ---------------------------------------- |
+| `--source-port PORT_NUM` | specify source port number               |
+| `--data-length NUM`      | append random data to reach given length |
+
+| Option     | Purpose                               |
+| ---------- | ------------------------------------- |
+| `--reason` | explains how Nmap made its conclusion |
+| `-v`       | verbose                               |
+| `-vv`      | very verbose                          |
+| `-d`       | debugging                             |
+| `-dd`      | more details for debugging            |
+
+| Option                      | Meaning                                         |
+| --------------------------- | ----------------------------------------------- |
+| `-sV`                       | determine service/version info on open ports    |
+| `-sV --version-light`       | try the most likely probes (2)                  |
+| `-sV --version-all`         | try all available probes (9)                    |
+| `-O`                        | detect OS                                       |
+| `--traceroute`              | run traceroute to target                        |
+| `--script=SCRIPTS`          | Nmap scripts to run                             |
+| `-sC` or `--script=default` | run default scripts                             |
+| `-A`                        | equivalent to `-sV -O -sC --traceroute`         |
+| `-oN`                       | save output in normal format                    |
+| `-oG`                       | save output in grepable format                  |
+| `-oX`                       | save output in XML format                       |
+| `-oA`                       | save output in normal, XML and Grepable formats |

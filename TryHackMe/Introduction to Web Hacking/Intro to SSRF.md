@@ -6,7 +6,7 @@ tags:
 link: https://tryhackme.com/room/ssrfqi
 ---
 # What is an SSRF?
-SSRF stands for Server-Side Request Forgery. It's a vulnerability that allows a malicious user to cause the webserver to make an additional or edited HTTP request to the resource of the attacker's choosing.
+SSRF stands for [Server-Side Request Forgery](Portswigger%20Web%20Security%20Academy/Sever-Side%20Vulns/Server-Side%20Request%20Forgery.md). It's a vulnerability that allows a malicious user to cause the webserver to make an additional or edited HTTP request to the resource of the attacker's choosing.
 ## Types of SSRF
 There are two types of SSRF vulnerability; the first is a regular SSRF where data is returned to the attacker's screen. The second is a Blind SSRF vulnerability where an SSRF occurs, but no information is returned to the attacker's screen.
 ## **What's the impact?**
@@ -39,3 +39,5 @@ Also, in a cloud environment, it would be beneficial to block access to the IP a
 An allow list is where all requests get denied unless they appear on a list or match a particular pattern, such as a rule that an URL used in a parameter must begin with **https://website.thm.** An attacker could quickly circumvent this rule by creating a subdomain on an attacker's domain name, such as https://website.thm.attackers-domain.thm. The application logic would now allow this input and let an attacker control the internal HTTP request.
 ## Open Redirect
 If the above bypasses do not work, there is one more trick up the attacker's sleeve, the open redirect. An open redirect is an endpoint on the server where the website visitor gets automatically redirected to another website address. Take, for example, the link https://website.thm/link?url=https://tryhackme.com. This endpoint was created to record the number of times visitors have clicked on this link for advertising/marketing purposes. But imagine there was a potential SSRF vulnerability with stringent rules which only allowed URLs beginning with https://website.thm/. An attacker could utilise the above feature to redirect the internal HTTP request to a domain of the attacker's choice.
+
+Related: [Server-Side Request Forgery](CAP/Server-Side%20Request%20Forgery.md) 

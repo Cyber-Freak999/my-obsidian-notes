@@ -27,3 +27,5 @@ Attackers can retrieve sensitive files or information, potentially leading to fu
 - Prefer using IDs or keys that map internally to file paths instead of directly accepting paths.
 - Log and error out on unexpected or suspicious input.
 - Regularly test with automated tools and static analysis to catch these vulnerabilities.
+
+Related: [Path Traversal](Portswigger%20Web%20Security%20Academy/Sever-Side%20Vulns/Path%20Traversal.md)

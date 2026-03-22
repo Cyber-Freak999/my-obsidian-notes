@@ -276,4 +276,173 @@ A programming tool that forces developers to _actively think_ rather than passiv
 
 ✅ **Extensible API** – Integrates with your existing development environment and AI tools like GitHub Copilot or Claude.
 
-​
+# Coding Study Plan Prompt 
+I want you to create a personalized coding study plan for me. 
+
+
+First, ask me ONE question: "What is your main goal with coding?" (e.g. build AI agents, data science/ML, web apps, automation, mobile apps, etc.)
+ 
+
+Based on my answer, you will:
+
+
+1. RECOMMEND A LANGUAGE by matching my goal to the best-fit language from this list:
+
+   - Python → data science, ML/AI, AI agents, automation, scripting
+
+   - JavaScript/TypeScript → web frontends, full-stack web apps, browser tools
+
+   - Swift → iOS/macOS apps
+
+   - Kotlin → Android apps
+
+   - Go → backend services, DevOps tooling, CLIs
+
+   - Rust → systems programming, performance-critical tools
+
+   - SQL → data analysis, analytics engineering (pair with Python)
+
+   If my goal doesn't fit neatly, pick the closest match and briefly explain why.
+
+  
+
+2. BUILD A STUDY PLAN around these 4–5 core topics IN ORDER. Do NOT change the topic names or their core content unless something is truly irrelevant to my goal — in that case, mark it as [OPTIONAL]:
+
+  
+
+   **Topic 1: Coding Basics**
+
+   Variables, data types, if statements, loops, functions, OOP
+
+   **Topic 2: Software Architecture**
+
+   How projects are structured, tech stacks, system design, kinds of APIs, data flow, databases, testing, deployment
+
+   **Topic 3: Version Control & GitHub**
+
+   Git fundamentals, branching, pull requests, collaboration workflows
+
+   **Topic 4: Privacy & Security**
+
+   Authentication, hosting options, database security, deployment security
+
+   **Topic 5: Microservices & Containerization** [OPTIONAL — include only if relevant to my goal]
+
+   Docker, container security, CI/CD, production deployment
+
+  
+
+3. FOR EACH TOPIC, recommend a curated resource list with this exact format:
+
+  
+
+| Resource | Type | Free? | Time | Description | Key Topics |
+
+|----------|------|-------|------|-------------|------------|
+
+  
+
+   Rules for resources:
+
+   - Include at least 4–5 resources per topic
+
+   - Cover a MIX of types: Textbook, Video Course, Text-based Course, Interactive Course, Reference
+
+   - Include at least ONE free option per topic
+
+   - Include time estimates (e.g. ~20–40 hrs, ~4 weeks at 5 hrs/wk)
+
+   - Recommend well-documented, widely used resources only (no obscure picks)
+
+   - For Python, use these specific curated resources I'll provide [paste your tables here if you want them used]
+
+  
+
+4. END with a total estimated time range to complete the full plan, and a suggested weekly schedule (e.g. 10 hrs/wk → ~X months).
+
+  
+
+Now go ahead — ask me my one question to get started.
+
+![](agent-design.png)
+
+```
+# Global Agent Rules 
+## Git Workflow
+When making code changes ALWAYS follow this process:
+
+1. Ensure current branch is committed if not do not continue until the user has committed and pushed the changes.
+
+2. Create a new branch before editing:
+   git checkout -b agent/<short-task-name>
+
+3. Never commit directly to main or master.
+
+4. Use clear commit messages:
+   feat: ...
+   fix: ...
+   refactor: ...
+
+5. After finishing changes:
+   - run tests
+   - run linters
+   - ensure project builds
+
+
+## Session Handling
+
+After each agent run or session :
+
+1. Export the session for traceability:
+   opencode export
+
+2. Save a summary in:
+   docs/agent-sessions/<date>-session.md
+
+3. Include:
+   - goal
+   - files changed
+   - commands run
+
+## Mandatory Rules
+
+These rules must always be followed:
+- NEVER make changes unless the current branch is committed.
+- ALWAYS create a git branch before editing code.
+- NEVER modify protected branches.
+- ALWAYS run tests before committing.
+- ALWAYS export the session on each completed agent run
+```
+
+## Creating an AGENTS.md File
+
+For best results, create an `AGENTS.md` file in your project root. This helps OpenCode understand:
+
+- Your project structure
+- Coding conventions
+- Preferred patterns
+- Technology stack
+
+Example:
+
+```markdown
+## Project: My SaaS App
+
+## Tech Stack
+- Next.js 14 with App Router
+- TypeScript
+- Tailwind CSS
+- PostgreSQL with Prisma
+
+## Conventions
+- Use functional components
+- Prefer server components when possible
+- Follow REST API naming conventions
+- Write tests for all new features
+
+## Structure
+- /app - Next.js app router pages
+- /components - Reusable UI components
+- /lib - Utility functions and helpers
+- /prisma - Database schema and migrations
+```

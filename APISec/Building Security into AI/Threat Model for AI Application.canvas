@@ -1,0 +1,21 @@
+{
+	"nodes":[
+		{"id":"9d0b911a015cac79","type":"text","text":"Internal Data","x":-440,"y":-200,"width":160,"height":60},
+		{"id":"920205eb61efdf0e","type":"text","text":"AI Component","x":40,"y":-200,"width":180,"height":60},
+		{"id":"3c27e79d6a7c0622","type":"text","text":"Training","x":-180,"y":-200,"width":143,"height":60},
+		{"id":"7e62212741d7b71a","type":"text","text":"External Dependencies(Libraries, foundational models, data)","x":-420,"y":-84,"width":240,"height":124},
+		{"id":"2d68e36feefc30d5","type":"text","text":"Application","x":200,"y":-84,"width":155,"height":77},
+		{"id":"f47ea3cbd963eb54","x":-557,"y":-360,"width":395,"height":57,"type":"file","file":"APISec/Building Security into AI/Threat Model - Internal Data.md"},
+		{"id":"77ef7597298c230a","type":"text","text":"Note that threat models are made specific to the kind of training and application being made.","x":-240,"y":280,"width":360,"height":120,"color":"5"},
+		{"id":"8e7570f5d38e253f","x":-480,"y":140,"width":400,"height":86,"type":"file","file":"APISec/Building Security into AI/Threat Model - External Dependencies.md"}
+	],
+	"edges":[
+		{"id":"d01cd4138a36a900","fromNode":"9d0b911a015cac79","fromSide":"right","toNode":"3c27e79d6a7c0622","toSide":"left"},
+		{"id":"1515c28448f6e8cd","fromNode":"3c27e79d6a7c0622","fromSide":"right","toNode":"920205eb61efdf0e","toSide":"left"},
+		{"id":"b8be007b5fb435c6","fromNode":"7e62212741d7b71a","fromSide":"right","toNode":"3c27e79d6a7c0622","toSide":"bottom"},
+		{"id":"bb035ed320884b59","fromNode":"920205eb61efdf0e","fromSide":"bottom","toNode":"2d68e36feefc30d5","toSide":"left"},
+		{"id":"52cf8f4f2682f416","fromNode":"2d68e36feefc30d5","fromSide":"top","toNode":"920205eb61efdf0e","toSide":"right"},
+		{"id":"e2265da604560c95","fromNode":"f47ea3cbd963eb54","fromSide":"bottom","toNode":"9d0b911a015cac79","toSide":"top"},
+		{"id":"d97e38680e373823","fromNode":"8e7570f5d38e253f","fromSide":"top","toNode":"7e62212741d7b71a","toSide":"bottom"}
+	]
+}

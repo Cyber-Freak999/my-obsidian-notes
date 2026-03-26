@@ -276,173 +276,214 @@ A programming tool that forces developers to _actively think_ rather than passiv
 
 ✅ **Extensible API** – Integrates with your existing development environment and AI tools like GitHub Copilot or Claude.
 
-# Coding Study Plan Prompt 
-I want you to create a personalized coding study plan for me. 
-
-
-First, ask me ONE question: "What is your main goal with coding?" (e.g. build AI agents, data science/ML, web apps, automation, mobile apps, etc.)
- 
-
-Based on my answer, you will:
-
-
-1. RECOMMEND A LANGUAGE by matching my goal to the best-fit language from this list:
-
-   - Python → data science, ML/AI, AI agents, automation, scripting
-
-   - JavaScript/TypeScript → web frontends, full-stack web apps, browser tools
-
-   - Swift → iOS/macOS apps
-
-   - Kotlin → Android apps
-
-   - Go → backend services, DevOps tooling, CLIs
-
-   - Rust → systems programming, performance-critical tools
-
-   - SQL → data analysis, analytics engineering (pair with Python)
-
-   If my goal doesn't fit neatly, pick the closest match and briefly explain why.
-
-  
-
-2. BUILD A STUDY PLAN around these 4–5 core topics IN ORDER. Do NOT change the topic names or their core content unless something is truly irrelevant to my goal — in that case, mark it as [OPTIONAL]:
-
-  
-
-   **Topic 1: Coding Basics**
-
-   Variables, data types, if statements, loops, functions, OOP
-
-   **Topic 2: Software Architecture**
-
-   How projects are structured, tech stacks, system design, kinds of APIs, data flow, databases, testing, deployment
-
-   **Topic 3: Version Control & GitHub**
-
-   Git fundamentals, branching, pull requests, collaboration workflows
-
-   **Topic 4: Privacy & Security**
-
-   Authentication, hosting options, database security, deployment security
-
-   **Topic 5: Microservices & Containerization** [OPTIONAL — include only if relevant to my goal]
-
-   Docker, container security, CI/CD, production deployment
-
-  
-
-3. FOR EACH TOPIC, recommend a curated resource list with this exact format:
-
-  
-
-| Resource | Type | Free? | Time | Description | Key Topics |
-
-|----------|------|-------|------|-------------|------------|
-
-  
-
-   Rules for resources:
-
-   - Include at least 4–5 resources per topic
-
-   - Cover a MIX of types: Textbook, Video Course, Text-based Course, Interactive Course, Reference
-
-   - Include at least ONE free option per topic
-
-   - Include time estimates (e.g. ~20–40 hrs, ~4 weeks at 5 hrs/wk)
-
-   - Recommend well-documented, widely used resources only (no obscure picks)
-
-   - For Python, use these specific curated resources I'll provide [paste your tables here if you want them used]
-
-  
-
-4. END with a total estimated time range to complete the full plan, and a suggested weekly schedule (e.g. 10 hrs/wk → ~X months).
-
-  
-
-Now go ahead — ask me my one question to get started.
-
-![](agent-design.png)
+# Daily Temperatures
+You are given an array of integers `temperatures` where `temperatures[i]` represents the daily temperatures on the `ith` day.
+Return an array where `output[i]` is the number of days after the `ith` day before a warmer temperature appears on a future day. If there is no day in the future where a warmer temperature will appear for the `ith` day, set `output[i]` to `0` instead.
 
 ```
-# Global Agent Rules 
-## Git Workflow
-When making code changes ALWAYS follow this process:
+daily_temperatures([30,38,30,36,35,40,28])
+output = [1,4,1,2,1,0,0]
 
-1. Ensure current branch is committed if not do not continue until the user has committed and pushed the changes.
+daily_temperatures([22,21,20])
+output = [0,0,0]
 
-2. Create a new branch before editing:
-   git checkout -b agent/<short-task-name>
-
-3. Never commit directly to main or master.
-
-4. Use clear commit messages:
-   feat: ...
-   fix: ...
-   refactor: ...
-
-5. After finishing changes:
-   - run tests
-   - run linters
-   - ensure project builds
-
-
-## Session Handling
-
-After each agent run or session :
-
-1. Export the session for traceability:
-   opencode export
-
-2. Save a summary in:
-   docs/agent-sessions/<date>-session.md
-
-3. Include:
-   - goal
-   - files changed
-   - commands run
-
-## Mandatory Rules
-
-These rules must always be followed:
-- NEVER make changes unless the current branch is committed.
-- ALWAYS create a git branch before editing code.
-- NEVER modify protected branches.
-- ALWAYS run tests before committing.
-- ALWAYS export the session on each completed agent run
+daily_temperatures([30,38,30,36,35,40,28])
+output = [1,4,1,2,1,0,0]
 ```
 
-## Creating an AGENTS.md File
-
-For best results, create an `AGENTS.md` file in your project root. This helps OpenCode understand:
-
-- Your project structure
-- Coding conventions
-- Preferred patterns
-- Technology stack
-
-Example:
-
-```markdown
-## Project: My SaaS App
-
-## Tech Stack
-- Next.js 14 with App Router
-- TypeScript
-- Tailwind CSS
-- PostgreSQL with Prisma
-
-## Conventions
-- Use functional components
-- Prefer server components when possible
-- Follow REST API naming conventions
-- Write tests for all new features
-
-## Structure
-- /app - Next.js app router pages
-- /components - Reusable UI components
-- /lib - Utility functions and helpers
-- /prisma - Database schema and migrations
+# Bingo check
+Create a function that takes a 5x5 2D list and returns `True` if it has at least one Bingo, and `False` If it doesn't.
 ```
+bingo_check([
+  [45, "x", 31, 74, 87],
+  [64, "x", 47, 32, 90],
+  [37, "x", 68, 83, 54],
+  [67, "x", 98, 39, 44],
+  [21, "x", 24, 30, 52]
+])
+output = True
+
+bingo_check([
+  ["x", 43, 31, 74, 87],
+  [64, "x", 47, 32, 90],
+  [37, 65, "x", 83, 54],
+  [67, 98, 39, "x", 44],
+  [21, 59, 24, 30, "x"]
+]) 
+output = True
+
+bingo_check([
+  ["x", "x", "x", "x", "x"],
+  [64, 12, 47, 32, 90],
+  [37, 16, 68, 83, 54],
+  [67, 19, 98, 39, 44],
+  [21, 75, 24, 30, 52]
+]) 
+output = True
+
+bingo_check([
+  [45, "x", 31, 74, 87],
+  [64, 78, 47, "x", 90],
+  [37, "x", 68, 83, 54],
+  [67, "x", 98, "x", 44],
+  [21, "x", 24, 30, 52]
+]) 
+output = False
+```
+
+
+# Build a connected eCommerce app
+## The Challenge
+
+_Come up with ways to connect people’s behavior to e-commerce incentives._
+
+Creating brand loyalty is everything to an e-commerce store. Our friends at Blvck Spades have a great product, and they need help coming up with ways to incentivize users to interact with their brand.
+
+Your challenge is to build software that connects a user’s activity to incentives. Beyond an e-commerce store, many businesses might have an app, partnerships, or physical locations or events — our job is to connect a user’s activity in these other places to incentives in the e-commerce store using the Mailchimp users as the source of truth.
+
+For example, something like “play 10 rounds of our game and get 10% off your order in the store”, or “show up to a local meetup and earn an exclusive, limited edition t-shirt”.
+
+_IMPORTANT:_ You do _not_ have to build the full e-commerce store part of this! In fact, it’s probably not possible given the time constraint. Instead, focus on building the fun interaction thing and making the note in Mailchimp that the user has done the thing that earns the incentive.
+
+## The Tools
+
+Apps must use [Intuit Mailchimp](https://lwj.dev/mailchimp), an email and marketing automation platform. Specifically, devs are encouraged to use the Members API for managing a given user's accomplishments, coupon codes, or other details.
+
+## Resources & Links
+
+- [Ximena's digital conference badge app](https://github.com/ximenavf92/intuit-mailchimp-api-challenge-lwj)
+- [Bree's Culture Quest app](https://github.com/breehall/web-dev-challenge)
+- [Robbie's exclusive deck unlocker app](https://github.com/RobbieTheWagner/webdevchallenge)
+- [Anthony's "not exactly spades" card game app](https://github.com/anthonydmays/blvckspades)
+# Build an app that shows gratitude
+## The Challenge
+
+_We all have moments, big or small, that make life just a little brighter. And there’s a growing body of research that says pausing to be grateful for the good things can actually make us happier. Your challenge is to build an app that’s based in gratitude, for yourself or for the greater good._
+
+How you interpret this is part of the fun. You can build an app that helps users practice gratitude, build an app that’s part of you practicing gratitude on your own, or do something completely off the wall. This prompt feels very “sincerepost” on its face, but there’s no expectation that we need to be serious or somber — feel free to get weird with it!
+
+## The Tools
+
+Apps must use Google Gemini ([https://lwj.dev/gemini](https://lwj.dev/gemini)), which offers multi-modal AI tools for developers.
+
+## Resources & Links
+
+- [Sarah's thank you card app](https://github.com/cgsdev0/web-dev-challenge)
+- [Zeu's "thank a dev" app](https://github.com/zeucapua/thankadev)
+- [Brian's hypedawg](https://github.com/btholt/hypedawg)
+- [Jason's thank you notes app](https://github.com/jlengstorf/wdc-gemini-gratitude)
+# Build an app to capture memories
+## The Challenge
+
+_Build an app that helps people capture memories._
+
+There are so many things we experience that might seem small in the moment, but that we’d see as a treasured memory looking back on it years from now. A special event, a dinner with loved ones, a small adventure — or a big one.
+
+Your challenge is to create an app to help people capture a special kind of memory. You get to choose what kind of memories your app will capture, but it should allow users to upload images and/or videos.
+
+## The Tools
+
+Apps must use the following tools in their build.
+
+- Tigris Data ([https://lwj.dev/tigris](https://lwj.dev/tigris)) is globally distributed S3-compatible object storage service that provides low latency anywhere in the world.
+- Fly.io ([https://lwj.dev/fly](https://lwj.dev/fly)) allows developers to deploy apps in a globally distributed way with minimal hassle.
+
+## Resources & Links
+
+- [Lawrence's Developer Disasters app](https://github.com/LawrenceDLockhart/digitaldisasters)
+- [Amy's Conf FOMO app](https://github.com/ahaywood/conffomo)
+- [Josh's My Favorite Thing app](https://github.com/joshcirre/myfavoritething)
+- [Jason's Made Me Smile app](https://github.com/learnwithjason/wdc-made-me-smile)
+- [BenQ RD280U monitors](https://benqurl.biz/46nNUaT)
+- [Keychron K8 Pro keyboards](https://www.keychron.com/products/keychron-k8-pro-qmk-via-wireless-mechanical-keyboard?ref=MKT&variant=39755425382489)
+- [Anglepoise desk lamps](https://www.anglepoise.com/usa/)
+- [Ugmonk desk accessories](https://ugmonk.com/)
+# Build an ecommerce site with a twist
+## The Challenge
+
+_Build an e-commerce site... with a twist._ E-commerce makes the world go round, and we wanted to challenge the devs to shake up the standard e-comm approaches with something different.
+
+## The Tool
+
+Apps must use [Algolia](https://lwj.dev/algolia) as part of the build. Algolia provides solutions for quickly adding search, recommendations, and more to web apps with pre-built components, fast responses, and painless integration.
+
+## Resources & Links
+
+- [Shaundai's Procrastinators' Paradise](https://github.com/shaundai/procrastinators-paradise)
+- [Sidney's Final Fantasy Team Builder](https://github.com/SidneyBuckner/my-monsters-learn-with-jason)
+- [Alex's Nan's Knits](https://github.com/a-trost/nans-blankets)
+- [Jason's Movie Picker](https://github.com/learnwithjason/wdc-movie-match)
+
+# Build a retro gaming app
+##  The Challenge
+
+_Build a retro gaming-themed app._ Make something nostalgic for the 8-bit days! Bring gamers together, pay homage to your favorite classic game, or even build a game of your own!
+
+## The Tool
+
+Apps must use [AWS Amplify](https://lwj.dev/amplify) as part of the build. Amplify was recently reimagined with Gen 2. It's got auth, storage, data, real-time updates, functions, and hosting — everything you need to build just about anything for the web.
+
+## Resources & Links
+
+- [Jason's 8-Bit Club](https://github.com/learnwithjason/4d1a-retro-games-amplify)
+- [Ben's AmpShark](https://github.com/bencodezen/amp-shark)
+- [Lindsay's Dysentery Community](https://github.com/lindsaykwardell/amplify)
+- [Dev's Tournitrix](https://github.com/devagrawal09/ampitrix)
+- [Sponsored by AWS Amplify](https://lwj.dev/amplify)
+
+# Build a productivity app that is not a todo list
+Build a productivity app that is NOT a todo list! 4 web devs built their own app based on this prompt. See what they built and watch their reactions to each other's work in the first episode of this new series!
+
+## Resources & Links
+
+- [Salma's Find Something To Do app](https://findsomethingtodo.netlify.app/)
+- [Salma's source code](https://github.com/whitep4nth3r/findsomethingtodo)
+- [Scott's box breath app](https://breathe.tolin.ski/)
+- [Scott's source code](https://github.com/stolinski/breathe)
+- [Eve's Balanced Citizen app](https://balanced-citizen.vercel.app/)
+- [Eve's source code](https://github.com/moonhighway/balanced-citizen)
+- [Jason's JFDI app](https://jfdi.netlify.app/track)
+- [Jason's source code](https://github.com/learnwithjason/4d1a-productivity-tracker)
+# No keyboard allowed
+## The Challenge
+
+**Build an app using unconventional inputs. Voice commands, gestures, facial expressions — anything other than the traditional keyboard and mouse.**
+
+The way we interact with apps is changing, and our users expect apps to adapt to their needs and intentions. The days of scouring through dozens of static pages and opening multiple tabs from the same site to piece together the context you need are numbered.
+
+In this challenge, we want you to push the boundaries of this experience by eliminating the option of a keyboard and mouse. How could people use a web app with alternative inputs? Get creative and show us what you’ve got!
+
+## The Tool: codename goose
+
+**Your app must use [codename goose](https://block.github.io/goose/docs/quickstart) as part of the build.** Goose is an extensible, open source AI framework for software developers that specializes in automating dev-related tasks.
+
+In this challenge, the Goose team wants you to spin up a team of specialized [codename goose subagents](https://block.github.io/goose/docs/experimental/subagents) to handle specific tasks.
+
+## Resources & Links
+
+- [Team Epic Geese (Kent & Joel) app source](https://github.com/kentcdodds/goose-dad)
+- [Team R.C. (IYKYK) (Leon & Erica) sensor code](https://github.com/leonnoel/wdc-read-sensors)
+- [Team R.C. (IYKYK) VS Code extension code](https://github.com/ericamendez/wdc-goose)
+- [Team Waffle (Billy & Andrew) app source](https://github.com/azigler/unconventional-interfaces)
+# Build a better shopping experience
+Just about everything online has some form of shopping these days: products, memberships, tipping, loot boxes — e-commerce is everywhere. **Your challenge is to come up with ways to make it more fun.**
+
+Developers now have access to the most advanced tools we’ve ever seen, but so far we’re still seeing the same old approaches to selling things online.
+
+We want you to imagine how online shopping could be improved using the tools available today. Listen to a description of a meal and use that to fill a grocery cart? Use someone’s musical taste to recommend what sandwich they should order? Use computer vision to let customers blink Morse code to enter discount codes? Get creative with this one!
+
+The apps do not need to be practical — but they _do_ need to be fun.
+
+## The Tool: OpenRouter
+
+**Your app must use [OpenRouter](https://openrouter.ai/) as part of the build.**
+
+OpenRouter unifies access to hundreds of AI models, including from OpenAI, Anthropic, and Google. One account, one place to manage credits, and API access to all the major models.
+
+## Resources & Links
+
+- [Quickstart docs](https://openrouter.ai/docs/quickstart)
+- [List of available models](https://openrouter.ai/models)
+- [Team Coding for the Vibes (Shruti & Mark) Vibe to Cart source code](https://github.com/shrutikapoor08/codetv-openrouter-vibe-to-cart)
+- [The Coding Cuties (Nick & Dom) clothing try-on source code](https://github.com/domitriusclark/ecommerce-chat-lwj)
+- [Team Philacon Valley (Waskar & Victor) shopping personas extension source code](https://github.com/philaconvalley/shoppingDebateChromeExtension)

@@ -1,6 +1,0 @@
-[Portswigger's Path Traversal](Portswigger%20Web%20Security%20Academy/Sever-Side%20Vulns/Path%20Traversal.md), [APISec Path Traversal](APISec/Securing%20API%20Servers/Path%20Traversal.md)
-[Cross-Site Scripting](Cross-Site%20Scripting.md), [Intro to Cross-site Scripting](Intro%20to%20Cross-site%20Scripting.md)
-[IDOR](IDOR.md), [Insecure Direct Object Reference (IDOR)](Insecure%20Direct%20Object%20Reference%20(IDOR).md)
-[Intro to SSRF](Intro%20to%20SSRF.md), [Server-Side Request Forgery](Portswigger%20Web%20Security%20Academy/Sever-Side%20Vulns/Server-Side%20Request%20Forgery.md), [Server-Side Request Forgery](CAP/Server-Side%20Request%20Forgery.md)
-[Command Injection](Command%20Injection.md), [OS Command Injection](OS%20Command%20Injection.md)
-[Authentication](Authentication.md), [Authentication Bypass](Authentication%20Bypass.md)

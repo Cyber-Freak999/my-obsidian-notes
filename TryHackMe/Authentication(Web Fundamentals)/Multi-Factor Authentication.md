@@ -63,7 +63,7 @@ With the increasing number of cyber attacks and data breaches, IT departments in
 In a corporate setting, MFA is typically used when accessing company networks, databases, and cloud services. Employees might first log in with their corporate credentials (something they know) and then verify their identity with a code sent to their company-issued phone (something they have) or through biometric verification (something they are). This way, even if someone tries to attack their system, they’ll hit a roadblock without the second factor.
 # Common Vulnerabilities in MFA
 ## Weak OTP Generation Algorithms
-The security of a One-Time Password (OTP) is only as strong as the algorithm used to create it. If the algorithm is weak or too predictable, it can make the attacker's job easier trying to guess the OTP. If an algorithm doesn't use truly random seeds, the OTPs generated might follow a pattern, making them more susceptible to prediction.
+The security of a One-Time Password (OTP) is only as strong as the algorithm used to create it. If the algorithm is weak or too predictable, it can make the attacker's job easier trying to guess the OTP. If an algorithm doesn't use truly random seeds, the OTPs generated might follow a pattern, making them [[Enumeration and Brute Force|more susceptible to prediction]].
 ## Application Leaking the 2FA Token
 If an application handles data poorly or has vulnerabilities like insecure API endpoints, it might accidentally leak the 2FA token in the application's HTTP response.
 

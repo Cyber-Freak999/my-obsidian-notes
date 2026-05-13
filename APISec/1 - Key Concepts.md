@@ -1,4 +1,4 @@
-# 🔐 **Top 4 API Security Attack Vectors:**
+# Top 4 API Security Attack Vectors
 
 1. **Authentication & Authorization**
     - Pen testers look for ways to bypass or break authentication.
@@ -13,7 +13,7 @@
 4. **Lack of Rate Limiting**
     - Without request throttling, APIs are vulnerable to brute force, scraping, or DoS attacks.
     - Testers simulate high-volume traffic to test for resilience.
-# 🧪 **API Penetration Testing Methods:**
+# API Penetration Testing Methods
 
 1. **SAST (Static Application Security Testing)**
     - **What it is**: Analyzing API source code, configs, or definitions before runtime.
@@ -27,7 +27,7 @@
     - **What it is**: Manual or semi-automated testing by humans, often with context-aware scripts.
     - **Purpose**: Validate business logic and nuanced security issues.
     - **Tools**: _Postman collection runner_.
-# 🔄 **Security Throughout the SDLC: Shift Left & Shift Right**
+# Security Throughout the SDLC: Shift Left & Shift Right
 
 - **Shift Left Security**
     - Integrate security early in development (e.g., code reviews, early SAST).

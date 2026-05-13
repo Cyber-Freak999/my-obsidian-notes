@@ -1,4 +1,4 @@
-# 🔐 **Where to Start API Testing**
+# Where to Start API Testing
 
 - Use **OWASP API Security Top 10** as your guide.
 - Begin with **BOLA (Broken Object Level Authorization)** — it's the most common and impactful flaw.

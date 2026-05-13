@@ -1,4 +1,4 @@
-## ❗ What Is Error Disclosure?
+# What Is Error Disclosure?
 
 - When APIs return **too much internal information** (stack traces, framework names, DB errors, etc.) to the user.    
 - Helps attackers **enumerate users**, identify your **tech stack**, or map **attack surfaces**.
@@ -8,7 +8,7 @@
     - Browser dev tools
     - Unhandled exceptions
 
-## 🧠 Why It's Dangerous
+## Why It's Dangerous
 
 - Exposing info like `"Spring Framework Error"` lets attackers search for related CVEs.    
 ![[Pasted image 20250629221459.png]]
@@ -18,7 +18,7 @@
     - **Framework versions**
     - **Stack traces / internal structure**
 
-## ✅ Best Practices
+## Best Practices
 [Error Handling Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html)
 
 | DO ✅                                                            | DON'T ❌                                     |
@@ -30,7 +30,7 @@
 | Catch and handle exceptions properly                            | Leave unhandled errors that bubble up       |
 
 
-## 🛠️ Examples
+## Examples
 
 ### ❌ Bad (Discloses stack & tech info):
 
@@ -48,19 +48,19 @@
 }
 ```
 
-### 🕵️ Real-World Tip
+## Real-World Tip
 
 - **GitHub returns 404 for both non-existent and unauthorized pages.**  
     → Prevents resource enumeration (you can’t tell if a repo exists unless you're allowed to access it).
 ![[Pasted image 20250629054230.png]]   
 
-## 🚫 Common Pitfalls
+## Common Pitfalls
 
 - Logging errors in the **response** instead of **server logs**.    
 - Using `try/catch` to return `err.toString()` or `res.send(err)`. 
 - Overly detailed form validation errors revealing valid/invalid users.
 
-## 🔒 Security Mindset
+## Security Mindset
 
 > Always assume your error messages will be **read by attackers**, not just users.
 
